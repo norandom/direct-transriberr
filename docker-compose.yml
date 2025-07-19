@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  transcriber:
+    build: .
+    image: direct-transcriber:latest
+    volumes:
+      # Mount input directory (change left side to your media directory)
+      - ./input:/input
+      # Mount output directory (change left side to your output directory)
+      - ./output:/output
+      # Mount models directory for persistent storage
+      - ./models:/models
+      # Mount individual files (example - uncomment and modify as needed)
+      # - /path/to/your/file.mp4:/input/file.mp4:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CUDA_VISIBLE_DEVICES=""
+      - WHISPER_MODEL_DIR=/models
+    # Override the default command
+    command: direct-transcriber batch /input --output-dir /output --yes
+    # For single file processing, use:
+    # command: direct-transcriber single /input/filename.mp4 --output /output/filename.md
+    
+    # Resource limits (optional - adjust based on your system)
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 2G
+
+  # Service for processing external files via volume mounts
+  transcriber-external:
+    build: .
+    image: direct-transcriber:latest
+    volumes:
+      # Mount external directories
+      - ${MEDIA_DIR:-./media}:/media:ro
+      - ${OUTPUT_DIR:-./transcriptions}:/transcriptions
+      # Mount models directory for persistent storage
+      - ./models:/models
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CUDA_VISIBLE_DEVICES=""
+      - WHISPER_MODEL_DIR=/models
+    profiles:
+      - external
+    command: direct-transcriber batch /media --output-dir /transcriptions --yes
