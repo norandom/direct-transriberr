@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "file_path": "/Users/mc/Source/direct-transriberr/test_5min.mp4",
+    "duration": 301.08,
+    "model": "tiny",
+    "language": "en",
+    "source_type": "video",
+    "transcribed_at": "2025-07-29T10:56:24.987045",
+    "processing_time": null,
+    "whisper_version": null
+  },
+  "language": "en",
+  "total_chunks": 6,
+  "chunks": [
+    {
+      "chunk_id": "test_5min.mp4_000",
+      "text": "Hello and welcome to lecture five of Machine Learning and Finance. So in this lecture I decided to go back to some of the things that we had done before and maybe point out a few things that came up in conversations with some of you in the discussion forum and the office hour of last week from eight to nine office hour Eastern time. That is the discrepancies that well, I mean certainly I think that there are more than one",
+      "start_time": 0.0,
+      "end_time": 35.32,
+      "duration": 35.32,
+      "word_count": 82,
+      "char_count": 425,
+      "confidence": 1.0,
+      "keywords": [
+        "lecture",
+        "some",
+        "things",
+        "office",
+        "hour"
+      ],
+      "summary": "Hello and welcome to lecture five of Machine Learning and Finance",
+      "context_before": null,
+      "context_after": "place is where you will find these discrepancies but at least one which was noticed by one of the participants",
+      "entities": [
+        {
+          "text": "Hello",
+          "type": "PROPER_NOUN",
+          "start": 0,
+          "end": 5
+        },
+        {
+          "text": "Machine Learning",
+          "type": "PROPER_NOUN",
+          "start": 37,
+          "end": 53
+        },
+        {
+          "text": "Finance",
+          "type": "PROPER_NOUN",
+          "start": 58,
+          "end": 65
+        },
+        {
+          "text": "Eastern",
+          "type": "PROPER_NOUN",
+          "start": 321,
+          "end": 328
+        }
+      ],
+      "topics": [
+        "technology",
+        "education"
+      ],
+      "quality_score": 1.0
+    },
+    {
+      "chunk_id": "test_5min.mp4_001",
+      "text": "place is where you will find these discrepancies but at least one which was noticed by one of the participants was the one between the implementation of the imbalance bars according to the hints given in the book because you will remember that in the book there are no snippets for the implementation of any of the imbalance bars, any of the information driven bars or the wrong bars. So there is a discrepancies between what is said in the book about the implementation and what is understood at least by many of us if not all of us to be the way to implement that and the way that it has been implemented in ML Finland by Hudson and Tames. I have also been in touch with the engineers there and they simply said that some of the it that it was vague in the book the way that it was supposed to be implemented and some of the things that if you followed the book didn't really work and we would have aware of that because I will share the part of the code with you there is a part that they call reading from the other screen",
+      "start_time": 35.32,
+      "end_time": 98.6,
+      "duration": 63.279999999999994,
+      "word_count": 200,
+      "char_count": 1026,
+      "confidence": 1.0,
+      "keywords": [
+        "book",
+        "bars",
+        "there",
+        "one",
+        "implementation",
+        "way",
+        "discrepancies",
+        "least",
+        "imbalance",
+        "because"
+      ],
+      "summary": "place is where you will find these discrepancies but at least one which was noticed by one of the participants was the one between the implementation of the imbalance bars according to the hints given...",
+      "context_before": "hour Eastern time. That is the discrepancies that well, I mean certainly I think that there are more than one",
+      "context_after": "dollar imbalance EMA and there is another one that they call dollar imbalance constant. So that I kind of understand",
+      "entities": [
+        {
+          "text": "Finland",
+          "type": "PROPER_NOUN",
+          "start": 613,
+          "end": 620
+        },
+        {
+          "text": "Hudson",
+          "type": "PROPER_NOUN",
+          "start": 624,
+          "end": 630
+        },
+        {
+          "text": "Tames",
+          "type": "PROPER_NOUN",
+          "start": 635,
+          "end": 640
+        }
+      ],
+      "topics": [
+        "technology"
+      ],
+      "quality_score": 1.0
+    },
+    {
+      "chunk_id": "test_5min.mp4_002",
+      "text": "dollar imbalance EMA and there is another one that they call dollar imbalance constant. So that I kind of understand but it is not just that there is more than that that is the discrepancy between what we understand from the book and the way that it has been implemented. I just want to point that out and maybe just go into the details as much as I was able to detect those details and I'm not 100% sure on all the reasoning behind the actual values chosen for the things that are chosen and those things are not always chosen this way even in the ML Finland lab various pages that have these kinds of dollar imbalance EMAs of course choose them differently",
+      "start_time": 98.6,
+      "end_time": 142.68,
+      "duration": 44.08000000000001,
+      "word_count": 124,
+      "char_count": 658,
+      "confidence": 1.0,
+      "keywords": [
+        "dollar",
+        "imbalance",
+        "not",
+        "just",
+        "chosen",
+        "there",
+        "understand",
+        "way",
+        "details",
+        "things"
+      ],
+      "summary": "dollar imbalance EMA and there is another one that they call dollar imbalance constant",
+      "context_before": "share the part of the code with you there is a part that they call reading from the other screen",
+      "context_after": "for the thresholds depending on the underlying data and the nature of that data but first let me remind you",
+      "entities": [
+        {
+          "text": "100",
+          "type": "NUMBER",
+          "start": 395,
+          "end": 398
+        },
+        {
+          "text": "Finland",
+          "type": "PROPER_NOUN",
+          "start": 552,
+          "end": 559
+        }
+      ],
+      "topics": [
+        "education"
+      ],
+      "quality_score": 1.0
+    },
+    {
+      "chunk_id": "test_5min.mp4_003",
+      "text": "for the thresholds depending on the underlying data and the nature of that data but first let me remind you of what it was when we started talking about these imbalance parts very very quickly. So notice that the story goes as we you have a file and then you take this file of data",
+      "start_time": 142.68,
+      "end_time": 162.76,
+      "duration": 20.079999999999984,
+      "word_count": 55,
+      "char_count": 281,
+      "confidence": 1.0,
+      "keywords": [
+        "data",
+        "very",
+        "file"
+      ],
+      "summary": "for the thresholds depending on the underlying data and the nature of that data but first let me remind you of what it was when we started talking about these imbalance parts very very quickly",
+      "context_before": "in the ML Finland lab various pages that have these kinds of dollar imbalance EMAs of course choose them differently",
+      "context_after": "of this tic data and then you kind of process that into having the timestamp the price the close price",
+      "entities": [],
+      "topics": [
+        "technology",
+        "science"
+      ],
+      "quality_score": 1.0
+    },
+    {
+      "chunk_id": "test_5min.mp4_004",
+      "text": "of this tic data and then you kind of process that into having the timestamp the price the close price let's say and the volume traded volume and you have all that information and you would like now you have the tick information at the level of the if you like the actual trades. So you have a timestamp for the time when the trade happens that trade is either a buy or a sell you do not have that information either it is a buyer initiated or a seller initiative you don't have that information you only and you don't have the best bidanaski you don't have the code information you have the so called trading information by which I mean you have the time at which the trade has taken place you have the price at which the trade has taken place you have the volume of the underlying thing that has been traded during that trade. So you have your tick data and with that tick data now you are going to change it from being a tick data to assigned tick data okay you just care about the size. So you want to capture at this time at least you want to capture the variation in the price over those ticks into a signed series with plus one and minus one okay that is your series B sub T t standing for each one of those ticks. So you have a B T defined that way and you already know",
+      "start_time": 162.76,
+      "end_time": 267.71999999999997,
+      "duration": 104.95999999999998,
+      "word_count": 254,
+      "char_count": 1277,
+      "confidence": 1.0,
+      "keywords": [
+        "information",
+        "data",
+        "tick",
+        "trade",
+        "price",
+        "volume",
+        "time",
+        "dont",
+        "one",
+        "timestamp"
+      ],
+      "summary": "of this tic data and then you kind of process that into having the timestamp the price the close price let's say and the volume traded volume and you have all that information and you would like now y...",
+      "context_before": "So notice that the story goes as we you have a file and then you take this file of data",
+      "context_after": "that I'm not going through the details but that you have a say you have converted that information up here",
+      "entities": [],
+      "topics": [
+        "technology",
+        "health",
+        "science",
+        "finance"
+      ],
+      "quality_score": 1.0
+    },
+    {
+      "chunk_id": "test_5min.mp4_005",
+      "text": "that I'm not going through the details but that you have a say you have converted that information up here into a series of plus ones and minus one according to whether price went down or went up compared to the previous case. So now you take these and you want to let's say that form bars okay out of these things and in order to form bars now there is already a confusion here because these values are have nothing to do with bar this t is used here both to a",
+      "start_time": 267.71999999999997,
+      "end_time": 301.08,
+      "duration": 33.360000000000014,
+      "word_count": 93,
+      "char_count": 461,
+      "confidence": 1.0,
+      "keywords": [
+        "here",
+        "say",
+        "went",
+        "now",
+        "form",
+        "bars"
+      ],
+      "summary": "that I'm not going through the details but that you have a say you have converted that information up here into a series of plus ones and minus one according to whether price went down or went up comp...",
+      "context_before": "standing for each one of those ticks. So you have a B T defined that way and you already know",
+      "context_after": null,
+      "entities": [],
+      "topics": [
+        "finance"
+      ],
+      "quality_score": 1.0
+    }
+  ],
+  "processing_info": {
+    "chunking_strategy": "SemanticChunking",
+    "total_words": 808,
+    "total_characters": 4128,
+    "average_quality": 1.0,
+    "generated_at": "2025-07-29T10:56:24.993234"
+  }
+}

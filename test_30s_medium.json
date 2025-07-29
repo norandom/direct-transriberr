@@ -1,0 +1,86 @@
+{
+  "metadata": {
+    "file_path": "/Users/mc/Source/direct-transriberr/test_30s.mp4",
+    "duration": 30.02,
+    "model": "medium",
+    "language": "en",
+    "source_type": "video",
+    "transcribed_at": "2025-07-29T11:05:41.464797",
+    "processing_time": null,
+    "whisper_version": null
+  },
+  "language": "en",
+  "total_chunks": 1,
+  "chunks": [
+    {
+      "chunk_id": "test_30s.mp4_000",
+      "text": "Hello and welcome to lecture five of Machine Learning in Finance. So in this lecture, I decided to go back to some of the things that we had done before and maybe point out a few things that came up in conversations with some of you in the discussion forum and the office hour of last week from 8 to 9 office hour Eastern time. And that is...",
+      "start_time": 0.0,
+      "end_time": 30.02,
+      "duration": 30.02,
+      "word_count": 68,
+      "char_count": 342,
+      "confidence": 1.0,
+      "keywords": [
+        "lecture",
+        "some",
+        "things",
+        "office",
+        "hour"
+      ],
+      "summary": "Hello and welcome to lecture five of Machine Learning in Finance",
+      "context_before": null,
+      "context_after": null,
+      "entities": [
+        {
+          "text": "8",
+          "type": "NUMBER",
+          "start": 295,
+          "end": 296
+        },
+        {
+          "text": "9",
+          "type": "NUMBER",
+          "start": 300,
+          "end": 301
+        },
+        {
+          "text": "Hello",
+          "type": "PROPER_NOUN",
+          "start": 0,
+          "end": 5
+        },
+        {
+          "text": "Machine Learning",
+          "type": "PROPER_NOUN",
+          "start": 37,
+          "end": 53
+        },
+        {
+          "text": "Finance",
+          "type": "PROPER_NOUN",
+          "start": 57,
+          "end": 64
+        },
+        {
+          "text": "Eastern",
+          "type": "PROPER_NOUN",
+          "start": 314,
+          "end": 321
+        }
+      ],
+      "topics": [
+        "technology",
+        "education"
+      ],
+      "quality_score": 1.0
+    }
+  ],
+  "processing_info": {
+    "chunking_strategy": "SemanticChunking",
+    "total_words": 68,
+    "total_characters": 342,
+    "average_quality": 1.0,
+    "generated_at": "2025-07-29T11:05:41.466555"
+  }
+}

@@ -104,7 +104,13 @@ docker-compose up --build
 MEDIA_DIR=/path/to/your/media OUTPUT_DIR=/path/to/output docker-compose --profile external up --build transcriber-external
 ```
 
-### Python Usage
+### Python/uv Usage
+
+**Prerequisites:**
+```bash
+# Activate the virtual environment
+source .venv/bin/activate
+```
 
 **Batch Processing:**
 
@@ -137,7 +143,7 @@ direct-transcriber single audio.mp3
 # Transcribe single video file (extracts audio automatically)
 direct-transcriber single video.mp4
 
-# With custom output
+# With custom output  
 direct-transcriber single media.mp4 --output transcript.md
 
 # JSON output
@@ -148,6 +154,9 @@ direct-transcriber single media.mp4 --rag-optimized --chunking-strategy semantic
 
 # Fixed-size chunking for consistent chunk sizes
 direct-transcriber single media.mp4 --rag-optimized --chunking-strategy fixed --chunk-size 1000
+
+# Example: Process a video segment with medium model and RAG optimization
+direct-transcriber single test_5min.mp4 --model medium --rag-optimized --chunking-strategy semantic --output test_5min_medium.md
 ```
 
 ### Command Options
