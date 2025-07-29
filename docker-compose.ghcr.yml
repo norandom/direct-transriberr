@@ -2,11 +2,8 @@ version: '3.8'
 
 services:
   transcriber:
-    # For local development - build from source
-    build: .
-    # For production - use pre-built image (comment out 'build' line above)
-    # image: ghcr.io/user/direct-transcriber:latest
-    image: direct-transcriber:latest
+    image: ghcr.io/user/direct-transcriber:latest
+    pull_policy: always
     volumes:
       # Mount input directory (change left side to your media directory)
       - ./input:/input
@@ -35,11 +32,8 @@ services:
 
   # Service for processing external files via volume mounts
   transcriber-external:
-    # For local development - build from source
-    build: .
-    # For production - use pre-built image (comment out 'build' line above)  
-    # image: ghcr.io/user/direct-transcriber:latest
-    image: direct-transcriber:latest
+    image: ghcr.io/user/direct-transcriber:latest
+    pull_policy: always
     volumes:
       # Mount external directories
       - ${MEDIA_DIR:-./media}:/media:ro
@@ -53,3 +47,25 @@ services:
     profiles:
       - external
     command: direct-transcriber batch /media --output-dir /transcriptions --yes
+
+  # Light version for resource-constrained environments
+  transcriber-light:
+    image: ghcr.io/user/direct-transcriber:latest-light
+    pull_policy: always
+    volumes:
+      - ./input:/input
+      - ./output:/output
+      - ./models:/models
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CUDA_VISIBLE_DEVICES=""
+      - WHISPER_MODEL_DIR=/models
+    profiles:
+      - light
+    command: direct-transcriber batch /input --output-dir /output --yes --model tiny
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G

@@ -14,7 +14,21 @@ A local CPU-only batch audio transcription tool optimized for RAGflow integratio
 
 ## Installation
 
-### Option 1: Docker (Recommended)
+### Option 1: Pre-built Docker Images (Recommended)
+
+**Using GitHub Container Registry (fastest):**
+```bash
+# Use pre-built images - no build required!
+docker run --rm -v ./input:/input -v ./output:/output -v ./models:/models \
+  ghcr.io/user/direct-transcriber:latest \
+  direct-transcriber batch /input --output-dir /output --yes
+
+# Or with docker-compose
+curl -O https://raw.githubusercontent.com/user/direct-transcriber/main/docker-compose.ghcr.yml
+docker-compose -f docker-compose.ghcr.yml up
+```
+
+### Option 2: Local Docker Build
 
 ```bash
 # Clone repository
@@ -25,7 +39,7 @@ cd direct-transcriber
 docker-compose up --build
 ```
 
-### Option 2: Python Installation
+### Option 3: Python Installation
 
 **Requirements:**
 - Python 3.9+
@@ -191,6 +205,29 @@ They explain how neural networks can be trained to recognize patterns in data.
 ## Segment 2 (05:00-10:00)
 [Next semantic chunk]
 ```
+
+## Docker Images
+
+### Available Images
+
+- `ghcr.io/user/direct-transcriber:latest` - Full image with all dependencies (~2GB)
+- `ghcr.io/user/direct-transcriber:latest-light` - Multi-stage optimized image (~1.5GB)
+- `ghcr.io/user/direct-transcriber:main` - Latest development build
+- `ghcr.io/user/direct-transcriber:v1.0.0` - Specific version tags
+
+### Image Variants
+
+**Standard Image (`latest`):**
+- Single-stage build
+- All dependencies included
+- Faster startup time
+- Larger image size
+
+**Light Image (`latest-light`):**
+- Multi-stage build
+- Optimized for production
+- Smaller image size
+- Minimal attack surface
 
 ## Docker Configuration
 
