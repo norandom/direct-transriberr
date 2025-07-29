@@ -5,18 +5,42 @@ from pathlib import Path
 from typing import Dict, List, Optional
 import json
 
+# Import new RAG components
+from .output.rag_markdown import RAGMarkdownFormatter
+from .core.models import TranscriptionResult
+
 
 class MarkdownFormatter:
     """Format transcription results as markdown for RAGflow."""
     
-    def __init__(self, include_timestamps: bool = False, chunk_size: Optional[int] = None):
+    def __init__(self, include_timestamps: bool = False, chunk_size: Optional[int] = None, 
+                 rag_optimized: bool = False, chunking_strategy: str = "semantic"):
         self.include_timestamps = include_timestamps
         self.chunk_size = chunk_size
+        self.rag_optimized = rag_optimized
+        self.chunking_strategy = chunking_strategy
+        
+        # Initialize RAG formatter if needed
+        if self.rag_optimized:
+            self.rag_formatter = RAGMarkdownFormatter(
+                chunking_strategy=chunking_strategy,
+                chunk_size=chunk_size
+            )
     
     def format_transcription(self, result: Dict, output_path: Path) -> str:
         """Format transcription result as markdown."""
         if not result:
             return ""
+        
+        # Use RAG-optimized formatting if enabled
+        if self.rag_optimized:
+            # Convert dict result to TranscriptionResult for RAG formatter
+            transcription_result = self._convert_to_transcription_result(result)
+            if transcription_result:
+                self.rag_formatter.format(transcription_result, output_path)
+                return f"RAG-optimized transcription saved to {output_path}"
+        
+        # Fall back to original formatting
         
         # Extract metadata
         file_path = result.get('file_path', 'Unknown')
@@ -160,3 +184,44 @@ class MarkdownFormatter:
     def save_json(self, result: Dict, output_path: Path):
         """Save raw transcription result as JSON."""
         output_path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
+    
+    def _convert_to_transcription_result(self, result: Dict) -> Optional[TranscriptionResult]:
+        """Convert dictionary result to TranscriptionResult for RAG formatter."""
+        try:
+            from .core.models import Segment, TranscriptionMetadata
+            from datetime import datetime
+            
+            # Convert segments
+            segments = []
+            for seg_dict in result.get('segments', []):
+                segment = Segment(
+                    start=seg_dict.get('start', 0.0),
+                    end=seg_dict.get('end', 0.0),
+                    text=seg_dict.get('text', ''),
+                    confidence=seg_dict.get('confidence', 1.0)
+                )
+                segments.append(segment)
+            
+            # Create metadata
+            metadata = TranscriptionMetadata(
+                file_path=result.get('file_path', 'unknown'),
+                duration=segments[-1].end if segments else 0.0,
+                model=result.get('model', 'unknown'),
+                language=result.get('language', 'unknown'),
+                source_type=result.get('source_type', 'audio'),
+                transcribed_at=datetime.now()
+            )
+            
+            # Create TranscriptionResult
+            transcription_result = TranscriptionResult(
+                text=result.get('text', ''),
+                segments=segments,
+                metadata=metadata,
+                language=result.get('language', 'unknown')
+            )
+            
+            return transcription_result
+            
+        except Exception as e:
+            print(f"Error converting to TranscriptionResult: {e}")
+            return None

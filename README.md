@@ -142,6 +142,12 @@ direct-transcriber single media.mp4 --output transcript.md
 
 # JSON output
 direct-transcriber single media.mp4 --format json
+
+# RAG-optimized output with intelligent chunking
+direct-transcriber single media.mp4 --rag-optimized --chunking-strategy semantic
+
+# Fixed-size chunking for consistent chunk sizes
+direct-transcriber single media.mp4 --rag-optimized --chunking-strategy fixed --chunk-size 1000
 ```
 
 ### Command Options
@@ -151,6 +157,8 @@ direct-transcriber single media.mp4 --format json
 - `--format, -f`: Output format (md, json, both)
 - `--timestamps`: Include timestamps in markdown
 - `--chunk-size`: Chunk size for RAG optimization (characters)
+- `--rag-optimized`: Enable RAG-optimized output with intelligent chunking
+- `--chunking-strategy`: Chunking strategy (semantic, sentence, fixed)
 - `--workers, -w`: Number of parallel workers (auto-detected)
 - `--yes, -y`: Skip confirmation prompts
 
@@ -270,15 +278,78 @@ The Docker setup supports several volume mounting options:
 - **Enhanced Progress**: Detailed progress tracking with processing times
 - **CPU Optimized**: FP16 warnings suppressed, CPU-specific optimizations
 
-## RAGflow Integration
+## RAG Optimization Features
 
-The tool generates markdown files optimized for RAGflow:
+Direct Transcriber now includes advanced RAG (Retrieval-Augmented Generation) optimizations:
 
-- Full file path preservation for traceability
-- Metadata headers for better organization
-- Optional chunking for optimal embedding
-- Clean text formatting for better search
-- Timestamp preservation when needed
+### Intelligent Chunking Strategies
+
+**Semantic Chunking (Recommended):**
+- Breaks content at natural topic boundaries
+- Detects discourse markers and transitions
+- Preserves context and meaning
+- Ideal for complex discussions and lectures
+
+**Sentence Chunking:**
+- Groups sentences into coherent chunks
+- Respects sentence boundaries
+- Good for clear, structured speech
+- Maintains readability
+
+**Fixed-Size Chunking:**
+- Consistent chunk sizes with smart overlap
+- Predictable for downstream processing
+- Good for batch processing workflows
+
+### Enhanced Metadata Extraction
+
+- **Keyword Extraction**: Automatic identification of key terms
+- **Entity Recognition**: Names, numbers, times, and proper nouns
+- **Topic Classification**: Domain-specific topic identification
+- **Quality Scoring**: Confidence-based chunk quality assessment
+- **Context Linking**: Inter-chunk relationships and context
+
+### RAG-Optimized Output
+
+```bash
+# Enable RAG optimization
+direct-transcriber batch /audio --rag-optimized
+
+# Choose chunking strategy
+direct-transcriber batch /audio --rag-optimized --chunking-strategy semantic
+
+# Custom chunk size
+direct-transcriber batch /audio --rag-optimized --chunk-size 1500
+```
+
+**Output Features:**
+- Structured markdown with semantic sections
+- JSON sidecar files for programmatic access
+- Cross-chunk context preservation
+- Quality metrics and confidence scores
+- Entity and keyword extraction
+- Topic classification
+
+**Example RAG Output:**
+```markdown
+# Audio Transcription (RAG Optimized)
+**Chunks:** 15 | **Strategy:** SemanticChunking
+
+## Segment 1 (00:00 - 02:30)
+**ID:** `lecture_001` | **Quality:** 0.92 | **Topics:** technology, AI
+
+The speaker discusses machine learning fundamentals...
+
+🏷️ **Entities:** Neural Networks, Deep Learning, PyTorch
+```
+
+### Integration Benefits
+
+- **Better Retrieval**: Semantic chunks improve search relevance
+- **Context Preservation**: Overlapping chunks maintain continuity
+- **Quality Filtering**: Low-confidence segments are flagged
+- **Structured Data**: JSON output enables programmatic processing
+- **Metadata Rich**: Enhanced information for better indexing
 
 ## License
 

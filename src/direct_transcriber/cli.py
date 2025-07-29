@@ -33,10 +33,14 @@ def cli():
               help='Output format')
 @click.option('--timestamps', is_flag=True, help='Include timestamps in markdown')
 @click.option('--chunk-size', type=int, help='Chunk size for RAG optimization (characters)')
+@click.option('--rag-optimized', is_flag=True, help='Enable RAG-optimized output with intelligent chunking')
+@click.option('--chunking-strategy', type=click.Choice(['semantic', 'sentence', 'fixed']), default='semantic',
+              help='Chunking strategy for RAG optimization')
 @click.option('--workers', '-w', type=int, help='Number of parallel workers (auto-detected if not specified)')
 @click.option('--yes', '-y', is_flag=True, help='Skip confirmation prompts')
 def batch(input_path: Path, output_dir: Optional[Path], model: Optional[str], 
           format: str, timestamps: bool, chunk_size: Optional[int], 
+          rag_optimized: bool, chunking_strategy: str,
           workers: Optional[int], yes: bool):
     """Batch transcribe audio files from INPUT_PATH directory."""
     
@@ -109,7 +113,12 @@ def batch(input_path: Path, output_dir: Optional[Path], model: Optional[str],
     
     # Initialize transcriber and formatter
     transcriber = LocalTranscriber(model)
-    formatter = MarkdownFormatter(include_timestamps=timestamps, chunk_size=chunk_size)
+    formatter = MarkdownFormatter(
+        include_timestamps=timestamps, 
+        chunk_size=chunk_size,
+        rag_optimized=rag_optimized,
+        chunking_strategy=chunking_strategy
+    )
     
     # Process files with progress bar
     with Progress(
@@ -172,8 +181,11 @@ def batch(input_path: Path, output_dir: Optional[Path], model: Optional[str],
 @click.option('--format', '-f', type=click.Choice(['md', 'json']), default='md',
               help='Output format')
 @click.option('--timestamps', is_flag=True, help='Include timestamps in markdown')
+@click.option('--rag-optimized', is_flag=True, help='Enable RAG-optimized output with intelligent chunking')
+@click.option('--chunking-strategy', type=click.Choice(['semantic', 'sentence', 'fixed']), default='semantic',
+              help='Chunking strategy for RAG optimization')
 def single(file_path: Path, output: Optional[Path], model: Optional[str], 
-           format: str, timestamps: bool):
+           format: str, timestamps: bool, rag_optimized: bool, chunking_strategy: str):
     """Transcribe a single audio file."""
     
     # Auto-select model if not specified
@@ -210,7 +222,11 @@ def single(file_path: Path, output: Optional[Path], model: Optional[str],
     
     # Save result
     if format == 'md':
-        formatter = MarkdownFormatter(include_timestamps=timestamps)
+        formatter = MarkdownFormatter(
+            include_timestamps=timestamps,
+            rag_optimized=rag_optimized,
+            chunking_strategy=chunking_strategy
+        )
         formatter.format_transcription(result, output)
     else:
         formatter = MarkdownFormatter()
