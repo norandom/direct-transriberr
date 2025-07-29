@@ -223,28 +223,22 @@ They explain how neural networks can be trained to recognize patterns in data.
 [Next semantic chunk]
 ```
 
-## Docker Images
+## Docker Image
 
-### Available Images
+### Optimized Container
 
-- `ghcr.io/user/direct-transcriber:latest` - Full image with all dependencies (~2GB)
-- `ghcr.io/user/direct-transcriber:latest-light` - Multi-stage optimized image (~1.5GB)
-- `ghcr.io/user/direct-transcriber:main` - Latest development build
-- `ghcr.io/user/direct-transcriber:v1.0.0` - Specific version tags
+The Docker image uses a multi-stage build process to minimize size while maintaining full functionality:
 
-### Image Variants
+- **Base**: Python 3.11-slim for minimal footprint
+- **Size**: ~800MB (compared to 2GB+ for standard PyTorch images)
+- **Security**: Runs as non-root user
+- **Optimization**: Removes test files, caches, and unnecessary components
 
-**Standard Image (`latest`):**
-- Single-stage build
-- All dependencies included
-- Faster startup time
-- Larger image size
+### Available Tags
 
-**Light Image (`latest-light`):**
-- Multi-stage build
-- Optimized for production
-- Smaller image size
-- Minimal attack surface
+- `ghcr.io/norandom/direct-transriberr:latest` - Latest stable release
+- `ghcr.io/norandom/direct-transriberr:main` - Latest development build
+- `ghcr.io/norandom/direct-transriberr:v1.0.0` - Specific version tags
 
 ## Docker Configuration
 

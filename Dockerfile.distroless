@@ -1,0 +1,80 @@
+# Ultra-minimal Docker image using distroless approach
+FROM python:3.11-slim as builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv
+RUN pip install --no-cache-dir uv
+
+WORKDIR /app
+
+# Copy project files
+COPY pyproject.toml ./
+COPY src/ ./src/
+
+# Create a minimal virtual environment
+ENV VIRTUAL_ENV=/opt/venv
+RUN python -m venv --without-pip $VIRTUAL_ENV && \
+    . $VIRTUAL_ENV/bin/activate && \
+    # Install only the essential packages
+    uv pip install --no-cache \
+    --index-url https://download.pytorch.org/whl/cpu \
+    torch torchaudio && \
+    uv pip install --no-cache --no-deps \
+    openai-whisper \
+    click \
+    rich \
+    ffmpeg-python \
+    psutil && \
+    uv pip install --no-cache -e . --no-deps && \
+    # Aggressive cleanup
+    find $VIRTUAL_ENV -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true && \
+    find $VIRTUAL_ENV -type f -name "*.pyc" -delete && \
+    find $VIRTUAL_ENV -type f -name "*.pyo" -delete && \
+    find $VIRTUAL_ENV -type f -name "*.a" -delete && \
+    find $VIRTUAL_ENV -type d -name "tests" -exec rm -rf {} + 2>/dev/null || true && \
+    find $VIRTUAL_ENV -type d -name "test" -exec rm -rf {} + 2>/dev/null || true && \
+    find $VIRTUAL_ENV -type d -name "*.dist-info" -exec rm -rf {}/tests {} + 2>/dev/null || true && \
+    # Remove PyTorch unnecessary components
+    rm -rf $VIRTUAL_ENV/lib/python*/site-packages/torch/test && \
+    rm -rf $VIRTUAL_ENV/lib/python*/site-packages/torch/include && \
+    rm -rf $VIRTUAL_ENV/lib/python*/site-packages/torch/lib/*.a && \
+    rm -rf $VIRTUAL_ENV/lib/python*/site-packages/caffe2/test && \
+    rm -rf $VIRTUAL_ENV/lib/python*/site-packages/torch/share && \
+    # Strip binaries
+    find $VIRTUAL_ENV/lib -name "*.so" -exec strip --strip-unneeded {} \; 2>/dev/null || true
+
+# Copy ffmpeg binary
+RUN cp /usr/bin/ffmpeg /opt/ffmpeg && \
+    cp /usr/bin/ffprobe /opt/ffprobe && \
+    # Copy required libraries for ffmpeg
+    mkdir -p /opt/lib && \
+    ldd /usr/bin/ffmpeg | grep "=> /" | awk '{print $3}' | xargs -I '{}' cp -v '{}' /opt/lib/ 2>/dev/null || true
+
+# Final stage - ultra minimal
+FROM gcr.io/distroless/python3-debian12
+
+# Copy Python virtual environment
+COPY --from=builder /opt/venv /opt/venv
+
+# Copy ffmpeg and its libraries
+COPY --from=builder /opt/ffmpeg /usr/bin/ffmpeg
+COPY --from=builder /opt/ffprobe /usr/bin/ffprobe
+COPY --from=builder /opt/lib /usr/lib
+
+# Set environment
+ENV PATH="/opt/venv/bin:$PATH"
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV CUDA_VISIBLE_DEVICES=""
+ENV TORCH_CUDA_VERSION=None
+
+# Create directories (distroless doesn't have mkdir)
+WORKDIR /workspace
+
+# Note: distroless images run as non-root by default
+ENTRYPOINT ["python", "-m", "direct_transcriber.cli"]
