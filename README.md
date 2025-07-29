@@ -32,7 +32,7 @@ docker-compose -f docker-compose.ghcr.yml up
 
 ```bash
 # Clone repository
-git clone <repository-url>
+git clone https://github.com/norandom/direct-transriberr
 cd direct-transcriber
 
 # Build and run with Docker Compose
@@ -49,7 +49,7 @@ docker-compose up --build
 **Install with uv:**
 ```bash
 # Clone repository
-git clone <repository-url>
+git clone https://github.com/norandom/direct-transriberr
 cd direct-transcriber
 
 # Install with uv
