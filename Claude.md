@@ -64,17 +64,17 @@ This tool transcribes videos/audio to text for RAG tools like RAGflow. The outpu
 ## TODO: RAG-Optimized Output Improvements
 
 ### 1. Semantic Chunking
-- [x] Implement intelligent chunking based on sentence boundaries and topic shifts
+- [x] Implement intelligent chunking based on sentence boundaries and topic shifts (basic discourse markers)
 - [x] Add overlap between chunks to maintain context (sliding window)
 - [x] Dynamic chunk sizing based on content density
 - [x] Add chunk metadata (position, context, neighboring chunks)
 
 ### 2. Metadata Enhancement
-- [x] Add semantic tags/keywords extraction for each chunk
+- [x] Add semantic tags/keywords extraction for each chunk (basic implementation)
 - [x] Include confidence scores for transcription segments
-- [x] Add topic detection and classification
-- [x] Generate document summary in metadata header
-- [x] Extract and highlight key entities (names, places, dates, technical terms)
+- [x] Add topic detection and classification (basic implementation)
+- [x] Generate document summary in metadata header (basic implementation)
+- [x] Extract and highlight key entities (names, places, dates, technical terms) (basic implementation)
 
 ### 3. Structured Output Formats
 - [ ] Add JSON-LD output with semantic markup
@@ -90,15 +90,15 @@ This tool transcribes videos/audio to text for RAG tools like RAGflow. The outpu
 
 ### 5. Context Preservation
 - [x] Add document-level context to each chunk
-- [x] Include temporal context (before/after summaries)
+- [x] Include temporal context (before/after summaries) (basic prev/next chunk context)
 - [ ] Preserve speaker information in chunks
-- [x] Add discourse markers and transition indicators
+- [x] Add discourse markers and transition indicators (basic keyword detection)
 
 ### 6. Quality Indicators
-- [x] Add audio quality score to output
+- [x] Add audio quality score to output (basic confidence-based scoring)
 - [x] Flag low-confidence transcription segments
 - [ ] Include silence/noise ratio metrics
-- [x] Mark potential transcription errors for review
+- [x] Mark potential transcription errors for review (via quality scores)
 
 ### 7. RAGflow-Specific Features
 - [x] Add RAGflow-compatible frontmatter
