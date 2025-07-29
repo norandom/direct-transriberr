@@ -45,7 +45,7 @@ models/
 input/
 output/
 transcriptions/
-media/
+/media/
 
 # Video and audio files
 *.mp4
@@ -77,3 +77,12 @@ docker-compose.override.yml
 # Temporary files
 *.tmp
 *.temp
+
+# Transcription output files
+*.md
+!README.md
+!Claude.md
+!docs/*.md
+
+# uv
+.venv/
