@@ -20,11 +20,11 @@ This tool transcribes videos/audio to text for RAG tools like RAGflow. The outpu
 - [ ] Optimize batch size based on available memory
 
 ### 3. Code Organization & Architecture
-- [ ] Extract FFmpeg operations to a dedicated module (`src/direct_transcriber/media.py`)
+- [x] Extract FFmpeg operations to a dedicated module (`src/direct_transcriber/media.py`)
 - [ ] Create a proper configuration management system
 - [ ] Add dependency injection for better testability
-- [ ] Implement a plugin system for different output formats
-- [ ] Create abstract base classes for transcribers and formatters
+- [x] Implement a plugin system for different output formats
+- [x] Create abstract base classes for transcribers and formatters
 
 ### 4. Feature Enhancements
 - [ ] Implement speaker diarization when available
@@ -64,23 +64,23 @@ This tool transcribes videos/audio to text for RAG tools like RAGflow. The outpu
 ## TODO: RAG-Optimized Output Improvements
 
 ### 1. Semantic Chunking
-- [ ] Implement intelligent chunking based on sentence boundaries and topic shifts
-- [ ] Add overlap between chunks to maintain context (sliding window)
-- [ ] Dynamic chunk sizing based on content density
-- [ ] Add chunk metadata (position, context, neighboring chunks)
+- [x] Implement intelligent chunking based on sentence boundaries and topic shifts
+- [x] Add overlap between chunks to maintain context (sliding window)
+- [x] Dynamic chunk sizing based on content density
+- [x] Add chunk metadata (position, context, neighboring chunks)
 
 ### 2. Metadata Enhancement
-- [ ] Add semantic tags/keywords extraction for each chunk
-- [ ] Include confidence scores for transcription segments
-- [ ] Add topic detection and classification
-- [ ] Generate document summary in metadata header
-- [ ] Extract and highlight key entities (names, places, dates, technical terms)
+- [x] Add semantic tags/keywords extraction for each chunk
+- [x] Include confidence scores for transcription segments
+- [x] Add topic detection and classification
+- [x] Generate document summary in metadata header
+- [x] Extract and highlight key entities (names, places, dates, technical terms)
 
 ### 3. Structured Output Formats
 - [ ] Add JSON-LD output with semantic markup
-- [ ] Implement hierarchical document structure (sections, subsections)
+- [x] Implement hierarchical document structure (sections, subsections)
 - [ ] Create standalone chunk files for large documents
-- [ ] Add cross-reference links between related chunks
+- [x] Add cross-reference links between related chunks
 
 ### 4. Search Optimization
 - [ ] Pre-compute embeddings for chunks (optional)
@@ -89,20 +89,20 @@ This tool transcribes videos/audio to text for RAG tools like RAGflow. The outpu
 - [ ] Create inverted index metadata file
 
 ### 5. Context Preservation
-- [ ] Add document-level context to each chunk
-- [ ] Include temporal context (before/after summaries)
+- [x] Add document-level context to each chunk
+- [x] Include temporal context (before/after summaries)
 - [ ] Preserve speaker information in chunks
-- [ ] Add discourse markers and transition indicators
+- [x] Add discourse markers and transition indicators
 
 ### 6. Quality Indicators
-- [ ] Add audio quality score to output
-- [ ] Flag low-confidence transcription segments
+- [x] Add audio quality score to output
+- [x] Flag low-confidence transcription segments
 - [ ] Include silence/noise ratio metrics
-- [ ] Mark potential transcription errors for review
+- [x] Mark potential transcription errors for review
 
 ### 7. RAGflow-Specific Features
-- [ ] Add RAGflow-compatible frontmatter
-- [ ] Generate chunk IDs compatible with RAGflow indexing
+- [x] Add RAGflow-compatible frontmatter
+- [x] Generate chunk IDs compatible with RAGflow indexing
 - [ ] Create manifest file for batch imports
 - [ ] Support RAGflow's document versioning scheme
 
