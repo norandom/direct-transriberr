@@ -17,7 +17,7 @@ COPY src/ ./src/
 # Install the application with CPU-only PyTorch
 RUN uv pip install --system \
     --index-url https://download.pytorch.org/whl/cpu \
-    torch==2.7.1+cpu torchaudio==2.7.1+cpu \
+    torch torchaudio \
     && uv pip install --system -e . \
     && rm -rf ~/.cache/uv
 
