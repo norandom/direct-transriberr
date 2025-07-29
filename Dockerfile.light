@@ -21,7 +21,7 @@ COPY src/ ./src/
 RUN uv venv /opt/venv && \
     . /opt/venv/bin/activate && \
     uv pip install --index-url https://download.pytorch.org/whl/cpu \
-    torch==2.7.1+cpu torchaudio==2.7.1+cpu && \
+    torch torchaudio && \
     uv pip install -e .
 
 # Runtime stage
